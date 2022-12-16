@@ -1,6 +1,7 @@
 {
   "repository": "#",
   "license": "UNLICENSED",
+  "author": "Aiman Aziz { muhdaimanaziz93@gmail.com }",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",
     "dev": "webpack serve --config ./bundler/webpack.dev.js"
@@ -13,19 +14,36 @@
     "copy-webpack-plugin": "^9.1.0",
     "css-loader": "^6.5.1",
     "file-loader": "^6.2.0",
+    "framer-motion": "^6.3.1",
+    "glslify": "^7.1.1",
+    "glslify-import-loader": "^0.1.2",
     "glslify-loader": "^2.0.0",
+    "gsap": "^3.11.3",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
-    "lil-gui": "^0.12.0",
+    "internal-ip": "^7.0.0",
+    "ip": "^1.1.8",
+    "lil-gui": "^0.16.0",
     "mini-css-extract-plugin": "^2.4.4",
     "portfinder-sync": "0.0.2",
     "raw-loader": "^4.0.2",
     "stats.js": "^0.17.0",
     "style-loader": "^3.3.1",
-    "three": "^0.134.0",
+    "three": "^0.146.0",
+    "three-mesh-bvh": "git+https://github.com/gkjohnson/three-mesh-bvh.git",
+    "three-stdlib": "^2.20.4",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
     "webpack": "^5.64.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.5.0",
     "webpack-merge": "^5.8.0"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/dat.gui": "^0.7.7",
+    "@types/stats.js": "^0.17.0",
+    "@types/three": "^0.146.0",
+    "dat.gui": "^0.7.9"
   }
 }

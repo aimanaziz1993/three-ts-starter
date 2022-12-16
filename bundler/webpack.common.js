@@ -4,11 +4,12 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
-    entry: path.resolve(__dirname, '../src/script.js'),
+    entry: path.resolve(__dirname, '../src/script.ts'),
     output:
     {
+        hashFunction: 'xxhash64',
         filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, '../dist')
+        path: path.resolve(__dirname, '../public')
     },
     devtool: 'source-map',
     plugins:
@@ -24,6 +25,12 @@ module.exports = {
         }),
         new MiniCSSExtractPlugin()
     ],
+    resolve: {
+        alias: {
+            three: path.resolve('./node_modules/three'),
+        },
+        extensions: ['.tsx', '.ts', '.js'],
+    },
     module:
     {
         rules:
@@ -35,6 +42,12 @@ module.exports = {
                 [
                     'html-loader'
                 ]
+            },
+
+            {
+                test: /\.ts?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
 
             // JS
@@ -67,6 +80,15 @@ module.exports = {
                 }
             },
 
+            // Audio
+            {
+                test: /\.(mp3|wav)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                },
+            },
+
             // Fonts
             {
                 test: /\.(ttf|eot|woff|woff2)$/,
@@ -81,12 +103,8 @@ module.exports = {
             {
                 test: /\.(glsl|vs|fs|vert|frag)$/,
                 exclude: /node_modules/,
-                use:
-                [
-                    'raw-loader',
-                    'glslify-loader'
-                ]
-            }
+                use: ['glslify-import-loader', 'raw-loader', 'glslify-loader'],
+            },
         ]
     }
 }

@@ -22,16 +22,14 @@ export default class World
         // Wait for resources
         this.resources.on('ready', () =>
         {
-            // Setup
-            // this.floor = new Floor()
-            // this.fox = new Fox()
-            this.environment = new Environment()
-            this.japan = new Japan()
+            // Setup all models from resources
+            this.environment = new Environment();
+            this.japan = new Japan();
         })
     }
 
     update()
     {
-        
+        if ( this.japan ) { this.japan.update() }
     }
 }

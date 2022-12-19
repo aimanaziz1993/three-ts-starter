@@ -19,7 +19,7 @@ export default class Camera
     instance: THREE.PerspectiveCamera;
     orbitControls: OrbitControls;
 
-    renderer: Renderer
+    renderer: Renderer;
 
     constructor()
     {
@@ -34,10 +34,10 @@ export default class Camera
         // Debug
         if (this.debug.active)
         {
-            this.debugFolder = this.debug.ui.addFolder('camera')
+            this.debugFolder = this.debug.ui.addFolder('Camera');
         }
 
-        this.setInstance()
+        this.setInstance();
     }
 
     setInstance()

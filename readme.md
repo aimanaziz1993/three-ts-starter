@@ -1,10 +1,8 @@
-# Three.js - Template - Complex
+# Three.js - Typescript Physics Boilerplate for instantiate static Model as Ground
 
-🚧 This template is under construction
+🌏 Under heavy development & refactor
 
 ## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
 
 ``` bash
 # Install dependencies (only the first time)

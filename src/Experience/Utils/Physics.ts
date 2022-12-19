@@ -2,26 +2,53 @@ import * as THREE from 'three';
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { MeshBVH, MeshBVHVisualizer } from 'three-mesh-bvh';
 
-import Experience from '../Experience';
-
-
 export default class Physic {
 
-    experience: Experience;
-    scene: THREE.Scene;
     geometries: any = [];
+    resource: any;
+    environment: THREE.Group;
+    
     collider: any;
     visualizer: any;
+    type: string;
 
-    constructor(geometries: any = []) {
+    constructor(resource: any, type: string) {
 
-        this.experience = new Experience();
-        this.scene = this.experience.scene;
-        this.geometries = geometries;
-        this.setPhysic();
+        this.resource = resource;
+        this.type = type;
+
+        switch (this.type) {
+            case 'static':
+                this.setStaticPhysic( this.resource );
+                break;
+            case 'player':
+                
+                break;
+            default:
+                break;
+        }
+        
     }
 
-    setPhysic() {
+    setStaticPhysic( _resource ) {
+        this.environment = _resource.scene;
+        this.environment.updateMatrixWorld( true );
+        this.environment.traverse( (child: THREE.Mesh) => {
+
+            if(child instanceof THREE.Mesh) {
+                if ( child.geometry ) {
+                    const cloned = child.geometry.clone();
+                    cloned.applyMatrix4( child.matrixWorld );
+
+                    for ( const key in cloned.attributes ) {
+                        if ( key !== 'position' ) {
+                            cloned.deleteAttribute( key );
+                        }
+                    }
+                    this.geometries.push( cloned );
+                }
+            }
+        });
 
         const mergedBufferGeometry = BufferGeometryUtils.mergeBufferGeometries( this.geometries );
         mergedBufferGeometry.boundsTree = new MeshBVH( mergedBufferGeometry );
@@ -34,6 +61,13 @@ export default class Physic {
         this.visualizer = new MeshBVHVisualizer( this.collider, 10 );
 
         return { collider: this.collider, visualizer: this.visualizer }
+    }
+
+    setCharacterPhysic() {
+
+        // 1. To include handler for character setup
+
+        // 2. Pass to update movement & velocity
     }
 
     update() {

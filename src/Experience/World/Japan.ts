@@ -52,40 +52,30 @@ export default class Japan
         this.model = this.resource.scene;
         this.model.scale.set(0.02, 0.02, 0.02);
         this.model.position.set( -30, 0, -20 );
-        this.scene.add(this.model);
+        
+        // inject physics here
+        this.physic = new Physic(this.resource, 'static');
 
-        this.model.updateMatrixWorld( true );
-        this.model.traverse((child: any) =>
+        if ( this.physic.collider ) {
+            this.physic.collider.visible = this.debugParams.displayCollider;
+            this.scene.add( this.physic.collider )
+        }
+
+        if ( this.physic.visualizer ) {
+            this.physic.visualizer.visible = this.debugParams.displayBVH;
+            this.scene.add( this.physic.visualizer )
+        }
+
+        if ( this.physic.environment ) {
+            this.scene.add( this.physic.environment )
+        }
+
+        this.physic.environment.traverse((child: THREE.Mesh) =>
         {
             if(child instanceof THREE.Mesh)
             {
                 child.castShadow = true;
                 child.receiveShadow = true;
-
-                if (child.geometry) {
-
-                    const cloned = child.geometry.clone();
-                    cloned.applyMatrix4( child.matrixWorld );
-
-                    for ( const key in cloned.attributes ) {
-                        if ( key !== 'position' ) {
-                            cloned.deleteAttribute( key );
-                        }
-                    }
-
-                    this.geometries.push( cloned );
-                    this.physic = new Physic(this.geometries);
-
-                    if ( this.physic.collider ){
-                        this.physic.collider.visible = this.debugParams.displayCollider;
-                        this.scene.add( this.physic.collider )
-                    }
-
-                    if ( this.physic.visualizer ) {
-                        this.physic.visualizer.visible = this.debugParams.displayBVH;
-                        this.scene.add( this.physic.visualizer )
-                    }
-                }
             }
         })
 

@@ -1,4 +1,6 @@
-# Three.js - Typescript Physics Boilerplate for instantiate static Model as Ground
+# Three.js - Typescript Physics Starter
+
+## - For instantiate static model as ground
 
 🌏 Under heavy development & refactor
 

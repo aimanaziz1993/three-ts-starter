@@ -11,6 +11,7 @@ export default class Physic {
     collider: any;
     visualizer: any;
     type: string;
+    player: any = {};
 
     constructor(resource: any, type: string) {
 
@@ -22,7 +23,7 @@ export default class Physic {
                 this.setStaticPhysic( this.resource );
                 break;
             case 'player':
-                
+                this.setCharacterPhysic( this.resource );
                 break;
             default:
                 break;
@@ -63,11 +64,19 @@ export default class Physic {
         return { collider: this.collider, visualizer: this.visualizer }
     }
 
-    setCharacterPhysic() {
+    setCharacterPhysic( _player ) {
+        let step: number = 5, velocity: THREE.Vector3 = new THREE.Vector3(),
+        playerIsOnGround: boolean = false;
 
-        // 1. To include handler for character setup
+        _player.userData.capsuleInfo = {
+            radius: 0.5,
+            segment: new THREE.Line3( new THREE.Vector3(), new THREE.Vector3( 0, - 1.0, 0.0 ) )
+        }
 
-        // 2. Pass to update movement & velocity
+        return this.player = {
+            player: _player,
+            physicParams: { step: step, playerVelocity: velocity, onGround: playerIsOnGround }
+        }
     }
 
     update() {

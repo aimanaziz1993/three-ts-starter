@@ -3,6 +3,7 @@ import Experience from '../Experience';
 import Resources from '../Utils/Resources';
 import Environment from './Environment'
 import Japan from './Japan';
+import Player from './Player';
 
 export default class World
 {
@@ -12,6 +13,7 @@ export default class World
     resources: Resources;
     environment: Environment;
     japan: Japan;
+    player: Player;
 
     constructor()
     {
@@ -25,11 +27,15 @@ export default class World
             // Setup all models from resources
             this.environment = new Environment();
             this.japan = new Japan();
+            this.player = new Player();
+
+            // console.log(this.player);
         })
     }
 
     update()
     {
         if ( this.japan ) { this.japan.update() }
+        if ( this.player ) { this.player.update() }
     }
 }
